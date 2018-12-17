@@ -11,19 +11,16 @@ class App extends Component {
 	getNewNumbers = () => {
 		const numbers = [];
 
-		while(true) {
-			const randomNum = Math.floor(Math.random() * 32 + 5);
+		while(numbers.length < 5) {
+			const randomNum = Math.floor(Math.random() * 31 + 5);
 			if (!numbers.includes(randomNum)) {
 				numbers.push(randomNum);
-			}
-			if (numbers.length === 5) {
-				break;
 			}
 		}
 
 		numbers.sort((a, b) => a - b);
 		this.setState({numbers});
-	};
+    };
 
 	componentDidMount() {
 		this.getNewNumbers();
@@ -34,11 +31,9 @@ class App extends Component {
 			<div className="App">
 				<button onClick={this.getNewNumbers}>New numbers</button>
 				<div>
-					<Number value={this.state.numbers[0]}/>
-					<Number value={this.state.numbers[1]}/>
-					<Number value={this.state.numbers[2]}/>
-					<Number value={this.state.numbers[3]}/>
-					<Number value={this.state.numbers[4]}/>
+                    {this.state.numbers.map((number, key) => {
+                        return <Number value={number} key={key}/>
+                    })}
 				</div>
 			</div>
 		);
